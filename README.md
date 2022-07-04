@@ -72,8 +72,8 @@ For FP16 operators, if the input data type is FP32, the backend of MindSpore wil
 
 # [Environment Requirements](#contents)
 
-- Hardware（/GPU）
-    - Prepare hardware environment with  or GPU processor.
+- Hardware（GPU）
+    - Prepare hardware environment with  GPU processor.
 - Framework
     - [MindSpore](https://www.mindspore.cn/install/en)
 - For more information, please check the resources below：
@@ -84,23 +84,6 @@ For FP16 operators, if the input data type is FP32, the backend of MindSpore wil
 
 After installing MindSpore via the official website, you can start training and evaluation as follows:
 
-- Running on 
-
-```bash
-# distributed training
-Usage:
-bash run_distribute_train.sh [NET] [DATASET] [RANK_TABLE_FILE] [DATASET_PATH]
-
-# standalone training
-Usage:
-export DEVICE_ID=0
-python train.py --net=[NET]  --dataset=[DATASET]  --dataset_path=[DATASET_PATH]
-
-# run evaluation example
-Usage:
-export DEVICE_ID=0
-python eval.py --net=[NET] --dataset=[DATASET] --checkpoint_path=[CHECKPOINT_PATH] --dataset_path=[DATASET_PATH]
-```
 
 - Running on GPU
 
@@ -183,18 +166,6 @@ Parameters for both training and evaluation can be set in config.py.
 
 ### Usage
 
-#### Running on 
-
-```bash
-# distributed training
-Usage:
-bash run_distribute_train.sh se-resnet50 imagenet2012  /imagenet/train  /rank_table.json
-
-# standalone training
-Usage:
-export DEVICE_ID=0
-bash run_standalone_train.sh  se-resnet50  imagenet2012   /data/imagenet/train/
-```
 
 #### Running on GPU
 
@@ -237,12 +208,7 @@ epoch time: 206295.838 ms, per step time: 330.073 ms
 
 ### Usage
 
-#### Running on 
 
-```bash
-export DEVICE_ID=0
-bash run_eval.sh /imagenet/val/  /path/to/resnet-90_625.ckpt
-```
 
 #### Running on GPU
 
@@ -305,54 +271,41 @@ result: {'top_5_accuracy': 93.86%, 'top_1_accuracy': 77.80%}
 
 #### SE-ResNet50 on ImageNet2012
 
-| Parameters                 |                                                      | GPU
-| -------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| Model Version              | SE-ResNet50                                                | SE-ResNet50                                                |
-| Resource                   | CentOs 8.2,  910，CPU 2.60GHz 192cores，Memory 755G  | V100-PCIE 32G                                              |
-| uploaded Date              | 07/05/2021 (month/day/year)                                | 07/14/2021 (month/day/year)                                |
-| MindSpore Version          | 1.3.0                                                      | 1.3.0                                                      |
-| Dataset                    | ImageNet2012                                               | ImageNet2012                                               |
-| Training Parameters        | epoch=90, steps per epoch=5004, batch_size = 256           | epoch=90, steps per epoch=5004, batch_size = 256           |
-| Optimizer                  | Momentum                                                   | Momentum                                                   |
-| Loss Function              | Softmax Cross Entropy                                      | Softmax Cross Entropy                                      |
-| outputs                    | probability                                                | probability                                                |
-| Loss                       | 1.5931969                                                  | 1.6664593                                                  |
-| Speed                      | # ms/step（8pcs）                                          | 8pcs: 1016.9 ms/step                                       |
-| Total time                 | # mins                                                     | 8pcs: 15.9 hours                                           |
-| Parameters (M)             | 285M                                                       | 285M                                                       |
-| Checkpoint for Fine tuning | # M (.ckpt file)                                           | # M (.ckpt file)                                           |
-| Scripts                    | <https://gitee.com/mindspore/models/tree/master/research/cv/SE-Net> |<https://gitee.com/mindspore/models/tree/master/research/cv/SE-Net>                                 |
+| Parameters                 |    GPU
+| -------------------------- | ---------------------------------------------------------- |
+| Model Version              | SE-ResNet50                                                |
+| Resource                   |  V100-PCIE 32G                                              |
+| uploaded Date              |  07/14/2021 (month/day/year)                                |
+| MindSpore Version          |1.3.0                                                      |
+| Dataset                    |  ImageNet2012                                               |
+| Training Parameters        |  epoch=90, steps per epoch=5004, batch_size = 256           |
+| Optimizer                  |  Momentum                                                   |
+| Loss Function              | Softmax Cross Entropy                                      |
+| outputs                    | probability                                                |
+| Loss                       |  1.6664593                                                  |
+| Speed                      |  8pcs: 1016.9 ms/step                                       |
+| Total time                 | 8pcs: 15.9 hours                                           |
+| Parameters (M)             | 285M                                                       |
+| Checkpoint for Fine tuning | # M (.ckpt file)                                           |
+| Scripts                    | <https://gitee.com/mindspore/models/tree/master/research/cv/SE-Net>                                 |
 
 ### Inference Performance
 
 #### SE-ResNet50 on ImageNet2012
 
-| Parameters          |                       | GPU                         |
-| ------------------- | --------------------------- | --------------------------- |
-| Model Version       | SE-ResNet50                 | SE-ResNet50                 |
-| Resource            |  910                  | V100-PCIE 32G               |
-| Uploaded Date       | 07/05/2021 (month/day/year) | 07/14/2021 (month/day/year) |
-| MindSpore Version   | 1.3.0                       | 1.3.0                       |
-| Dataset             | ImageNet2012                | ImageNet2012                |
-| batch_size          | 256                         | 256                         |
-| Accuracy            | 77.74%                      | 77.66%                      |
-| Model for inference | # (.air file)               | ------                      |
+| Parameters          | GPU                         |
+| ------------------- | --------------------------- |
+| Model Version       |SE-ResNet50                 |
+| Resource            | V100-PCIE 32G               |
+| Uploaded Date       |  07/14/2021 (month/day/year) |
+| MindSpore Version   | 1.3.0                       |
+| Dataset             |  ImageNet2012                |
+| batch_size          | 256                         |
+| Accuracy            | 77.66%                      |
+| Model for inference | ------                      |
 
 ### 310Inference Performance
 
-#### SE-ResNet50 on ImageNet2012
-
-| Parameters          |                       |
-| ------------------- | --------------------------- |
-| Model Version       | SE-ResNet50                 |
-| Resource            |  310; OS Euler2.8     |
-| Uploaded Date       | 06/16/2021 (month/day/year) |
-| MindSpore Version   | 1.2.0                       |
-| Dataset             | ImageNet2012                |
-| batch_size          | 1                           |
-| outputs             | Accuracy                    |
-| Accuracy            | 77.80%                      |
-| Model for inference | 285M(.ckpt file)            |
 
 # [Description of Random Situation](#contents)
 
